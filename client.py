@@ -2,13 +2,12 @@ import threading
 
 from customtkinter import *
 from socket import *
+from threading import *
+
+from auth import AuthWindow, resource_path
 
 set_appearance_mode("light")
-set_default_color_theme("lavender.json")
-
-from auth import AuthWindow
-
-
+set_default_color_theme(resource_path("lavender.json"))
 
 auth_win = AuthWindow()
 auth_win.mainloop()
@@ -28,7 +27,7 @@ class MainWindow(CTk):
         self.bottom_row.pack(fill="x")
         self.message_entry = CTkEntry(self.bottom_row, placeholder_text="vvedit povidomlenya", height=40)
         self.message_entry.pack(fill="x", expand=True, side="left")
-        self.send_button = CTkButton(self.bottom_row, text="vidpraviti", width=50, height=40, command=self.send_message)
+        self.send_button = CTkButton(self.bottom_row, text="vidpraviti", width=50, height=40)
         self.send_button.pack()
 
         self.connect()
@@ -44,7 +43,7 @@ class MainWindow(CTk):
             self.add_message(f"Не вдалося підключитися до сервера: {e}")
 
     def add_message(self, text):
-        label = CTkLabel(self.chat_field, text=text, anchor="w", justify="left", wraplength=300)
+        label = CTkLabel(self.chat_field, text=text, anchor="w", justify="left", wrapleght=300)
         label.pack(fill="x", anchor="w", pady=2, padx=5)
         self.chat_field._parent_canvas.yview_moveto(1.0)
 

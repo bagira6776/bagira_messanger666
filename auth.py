@@ -1,6 +1,18 @@
 from customtkinter import *
 from PIL import Image
 
+import sys
+import os
+
+def resource_path(relative_path):
+
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+
 set_default_color_theme("lavender.json")
 
 
@@ -17,7 +29,7 @@ class AuthWindow(CTk):
         self.left_frame.pack(side="left", fill="both")
 
 
-        img_CTk = CTkImage(light_image=Image.open("img.png"), size=(450, 400))
+        img_CTk = CTkImage(light_image=Image.open(resource_path("img.png")), size=(450, 400))
         self.img_label = CTkLabel(self.left_frame, text="welcome", image=img_CTk, font=("Helvetika", 50, "bold"))
         self.img_label.pack()
 
@@ -44,9 +56,5 @@ class AuthWindow(CTk):
         self.ip = self.ip_entry.get()
         self.port = int(self.port_entry.get())
         self.destroy()
-
-
-# AuthWindow().mainloop()
-
 
 
